@@ -1,0 +1,33 @@
+package com.news.assignment.rss.di.ai
+
+import com.news.assignment.rss.common.Constants.URL_TRANSLATE
+import com.news.assignment.rss.data.api.TranslationApi
+import com.news.assignment.rss.data.repository.TranslationRepositoryImpl
+import com.news.assignment.rss.domain.repository.TranslationRepository
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object TranslationModule {
+    @Provides
+    @Singleton
+    fun provideTranslationApi(): TranslationApi = Retrofit.Builder()
+        .baseUrl(URL_TRANSLATE)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(OkHttpClient()).build().create(TranslationApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTranslationRepository(
+        translationApi: TranslationApi
+    ): TranslationRepository = TranslationRepositoryImpl(
+        translationApi = translationApi
+    )
+}
