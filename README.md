@@ -1,7 +1,7 @@
 ## 🎥 Project Demo
 
-Click below to watch the video
 [![Tanıtım Videosu](https://img.youtube.com/vi/3KTQF4SONTo/0.jpg)](https://www.youtube.com/shorts/3KTQF4SONTo)
+Click above to watch the video
 
 ## **TRT Android Assignment Project Documentation**
 
