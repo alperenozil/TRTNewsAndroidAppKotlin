@@ -1,3 +1,7 @@
+## 🎥 Project Demo
+
+[![Click for video]]([https://www.youtube.com/watch?v=abcd1234EFG](https://www.youtube.com/shorts/3KTQF4SONTo))
+
 ## **TRT Android Assignment Project Documentation**
 
 ### **1. Introduction**
