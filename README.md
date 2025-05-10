@@ -3,6 +3,9 @@
 [![Tanıtım Videosu](https://img.youtube.com/vi/3KTQF4SONTo/0.jpg)](https://www.youtube.com/shorts/3KTQF4SONTo)
 > Click thumbnail to watch the video
 
+## **Setup Instructions**
+This app doesn't need and configurations to run. It just works.
+
 ## **TRT Android Assignment Project Documentation**
 
 ### **1. Introduction**
