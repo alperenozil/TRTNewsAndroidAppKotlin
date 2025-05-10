@@ -8,7 +8,7 @@ import com.news.assignment.rss.domain.repository.TranslationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetNewsUseCase @Inject constructor(
+class GetNewsWithTranslationsUseCase @Inject constructor(
     private val newsRepository: NewsRepository,
     private val translationRepository: TranslationRepository,
 ) {

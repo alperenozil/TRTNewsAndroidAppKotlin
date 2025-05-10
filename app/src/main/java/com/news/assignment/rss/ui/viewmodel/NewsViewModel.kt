@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.news.assignment.rss.common.Resource
 import com.news.assignment.rss.data.remote.newsresponse.News
 import com.news.assignment.rss.data.remote.newsresponse.toNewsEntity
-import com.news.assignment.rss.domain.usecase.news.GetNewsUseCase
+import com.news.assignment.rss.domain.usecase.news.GetNewsWithTranslationsUseCase
 import com.news.assignment.rss.ui.state.NewsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val getNewsUseCase: GetNewsUseCase,
+    private val getNewsWithTranslationsUseCase: GetNewsWithTranslationsUseCase,
 ) : ViewModel() {
 
     private val _newsState = MutableStateFlow(value = NewsState())
@@ -28,7 +28,7 @@ class NewsViewModel @Inject constructor(
 
     private fun getNews() {
         viewModelScope.launch(Dispatchers.IO) {
-            val news = getNewsUseCase.getNews()
+            val news = getNewsWithTranslationsUseCase.getNews()
             news.collect {
                 when (it) {
                     is Resource.Success -> translate(it.data)
@@ -42,22 +42,33 @@ class NewsViewModel @Inject constructor(
     private fun translate(data: List<News>?) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                data?.let { newsList ->
-                    val updatedNewsList = newsList.filter { !it.isTranslated }.map {
-                        it.copy(
-                            title = getNewsUseCase.getTranslation(it.title!!),
-                            description = getNewsUseCase.getTranslation(it.description!!)
+                data?.forEach { item ->
+                    val translatedItem = if (!item.isTranslated) {
+                        item.copy(
+                            title = getNewsWithTranslationsUseCase.getTranslation(item.title!!),
+                            description = getNewsWithTranslationsUseCase.getTranslation(item.description!!),
+                            isTranslated = true
                         )
-                    }
-                    if (updatedNewsList.isNotEmpty()) {
-                        _newsState.value = NewsState(items = updatedNewsList)
-                    } else _newsState.value = NewsState(items = data)
-                    updatedNewsList.forEach { getNewsUseCase.insertNews(it.toNewsEntity()) }
+                    } else item
+
+                    // Add the translated item to the state one by one
+                    val currentList = _newsState.value.items ?: emptyList()
+                    _newsState.value = NewsState(
+                        items = currentList + translatedItem,
+                        isLoading = false
+                    )
+
+                    // Insert into DB
+                    getNewsWithTranslationsUseCase.insertNews(translatedItem.toNewsEntity())
                 }
             } catch (e: Exception) {
-                _newsState.value = NewsState(items = data)
+                _newsState.value = NewsState(
+                    items = data,
+                    isLoading = false
+                )
                 println("Error in translate function: ${e.message}")
             }
         }
     }
+
 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.news.assignment.rss.common.Resource
 import com.news.assignment.rss.domain.usecase.chat.GetChatRecommendationsUseCase
-import com.news.assignment.rss.domain.usecase.news.GetNewsUseCase
+import com.news.assignment.rss.domain.usecase.news.GetNewsWithTranslationsUseCase
 import com.news.assignment.rss.ui.state.UiDataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ChatViewModel @Inject constructor(
     private val getChatRecommendationsUseCase: GetChatRecommendationsUseCase,
-    private val getNewsUseCase: GetNewsUseCase,
+    private val getNewsWithTranslationsUseCase: GetNewsWithTranslationsUseCase,
 ) : ViewModel() {
 
     private val _newsRecommendationState = MutableStateFlow(value = UiDataState())
@@ -24,7 +24,7 @@ class ChatViewModel @Inject constructor(
 
     internal fun getRecommendation(prompt: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            getNewsUseCase.getNews().collect{
+            getNewsWithTranslationsUseCase.getNews().collect{
                 when (it) {
                     is Resource.Success -> {
                         getChatRecommendationsUseCase.getRecommendation(prompt = prompt, it.data!!.map { it.title!! })
