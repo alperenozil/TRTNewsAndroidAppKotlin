@@ -12,4 +12,7 @@ interface NewsDao {
 
     @Query("SELECT * FROM news")
     fun getNews(): List<NewsEntity>
+
+    @Query("DELETE FROM news")
+    fun deleteAllNews()
 }

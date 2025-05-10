@@ -1,4 +1,4 @@
-package com.news.assignment.rss.ui.viewmodel
+package com.news.assignment.rss.ui.viewmodel.news
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

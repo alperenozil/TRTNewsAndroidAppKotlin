@@ -81,4 +81,8 @@ class NewsRepositoryImpl @Inject constructor(
     override suspend fun insertDatabaseEntry(entry: NewsEntity) {
         dao.insert(entry)
     }
+
+    override suspend fun deleteAllNews() {
+        dao.deleteAllNews()
+    }
 }

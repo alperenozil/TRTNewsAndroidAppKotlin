@@ -1,4 +1,4 @@
-package com.news.assignment.rss.ui.viewmodel
+package com.news.assignment.rss.ui.viewmodel.chat
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,7 @@ class ChatViewModel @Inject constructor(
             getNewsWithTranslationsUseCase.getNews().collect{
                 when (it) {
                     is Resource.Success -> {
-                        getChatRecommendationsUseCase.getRecommendation(prompt = prompt, it.data!!.map { it.title!! })
+                        getChatRecommendationsUseCase.getRecommendation(prompt = prompt, it.data!!.map { it.description!! })
                             .collect {
                                 when (it) {
                                     is Resource.Success -> _newsRecommendationState.value =

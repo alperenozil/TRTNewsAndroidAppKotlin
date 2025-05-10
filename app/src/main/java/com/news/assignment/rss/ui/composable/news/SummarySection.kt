@@ -1,4 +1,4 @@
-package com.news.assignment.rss.ui.composable
+package com.news.assignment.rss.ui.composable.news
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

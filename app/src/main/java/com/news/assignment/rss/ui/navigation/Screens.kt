@@ -38,18 +38,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.news.assignment.rss.ui.composable.NewsItem
-import com.news.assignment.rss.ui.composable.NewsDetailSection
-import com.news.assignment.rss.ui.composable.SummarySection
-import com.news.assignment.rss.ui.viewmodel.ChatViewModel
-import com.news.assignment.rss.ui.viewmodel.NewsDetailViewModel
-import com.news.assignment.rss.ui.viewmodel.NewsViewModel
+import com.news.assignment.rss.ui.composable.news.NewsItem
+import com.news.assignment.rss.ui.composable.news.NewsDetailSection
+import com.news.assignment.rss.ui.composable.news.SummarySection
+import com.news.assignment.rss.ui.composable.settings.LanguageSelector
+import com.news.assignment.rss.ui.viewmodel.chat.ChatViewModel
+import com.news.assignment.rss.ui.viewmodel.news.NewsDetailViewModel
+import com.news.assignment.rss.ui.viewmodel.news.NewsViewModel
 
 @Composable
 fun SettingsScreen(navController: NavController) {
-    Column {
-        Text("Settings")
-    }
+    LanguageSelector()
 }
 
 @Composable

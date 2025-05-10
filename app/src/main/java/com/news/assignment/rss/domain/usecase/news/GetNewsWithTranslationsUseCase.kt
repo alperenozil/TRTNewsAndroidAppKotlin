@@ -15,4 +15,5 @@ class GetNewsWithTranslationsUseCase @Inject constructor(
     suspend fun getNews(): Flow<Resource<List<News>>> = newsRepository.getNews()
     suspend fun getTranslation(text: String): String = translationRepository.getTranslation(text)
     suspend fun insertNews(entry: NewsEntity) = newsRepository.insertDatabaseEntry(entry)
+    suspend fun deleteAllNews() = newsRepository.deleteAllNews()
 }
