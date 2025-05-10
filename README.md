@@ -4,7 +4,7 @@
 > Click thumbnail to watch the video
 
 ## **Setup Instructions**
-This app doesn't need and configurations to run. It just works.
+This app doesn't need any configurations to run. It just works.
 
 ## **TRT Android Assignment Project Documentation**
 
