@@ -211,13 +211,25 @@ fun NewsScreen(navController: NavController, viewModel: NewsViewModel = hiltView
                     items(it.filter {
                         it.title?.lowercase()?.contains(searchKeyword.value) == true
                     }) { item ->
-                        val encodedTitle = Uri.encode(item.title)
-                        val encodedDesc = Uri.encode(item.description)
-                        val encodedImage = Uri.encode(item.mainImageUrl)
-                        val encodedPath = Uri.encode(item.path)
+                        val isClickable = !item.title.isNullOrBlank() &&
+                                !item.description.isNullOrBlank() &&
+                                !item.mainImageUrl.isNullOrBlank() &&
+                                !item.path.isNullOrBlank()
+
                         NewsItem(
-                            item.title!!,
-                            onClick = { navController.navigate("details/${item.id}/$encodedTitle/$encodedDesc/$encodedImage/$encodedPath") })
+                            title = item.title ?: "Loading...",
+                            enabled = isClickable,
+                            onClick = {
+                                if (isClickable) {
+                                    val encodedTitle = Uri.encode(item.title)
+                                    val encodedDesc = Uri.encode(item.description)
+                                    val encodedImage = Uri.encode(item.mainImageUrl)
+                                    val encodedPath = Uri.encode(item.path)
+                                    navController.navigate("details/${item.id}/$encodedTitle/$encodedDesc/$encodedImage/$encodedPath")
+                                }
+                            }
+                        )
+
                     }
                 }
             }
