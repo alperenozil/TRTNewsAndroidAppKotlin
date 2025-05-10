@@ -196,7 +196,7 @@ fun NewsScreen(navController: NavController, viewModel: NewsViewModel = hiltView
                 onClick = {
                     searchKeyword.value = input.value
                 }) {
-                Text("Search")
+                Text("OK")
             }
         }
         if (newsState.value.isLoading) {

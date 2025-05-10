@@ -11,14 +11,14 @@ plugins {
 
 android {
     namespace = "com.news.assignment.rss"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         applicationId = "com.news.assignment.rss"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.google.dagger.hilt.android.testing.HiltTestRunner"
     }
     buildTypes {
         release {
@@ -38,6 +38,13 @@ android {
     buildFeatures {
         compose = true
     }
+
+    packaging {
+        resources {
+            exclude("META-INF/LICENSE.md")
+            exclude("META-INF/LICENSE-notice.md")
+        }
+    }
 }
 
 dependencies {
@@ -48,6 +55,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.retrofit)
     implementation(libs.gson)
+    implementation(libs.androidx.ui.test.junit4.android)
     testImplementation(libs.junit.junit)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewModelCompose)
@@ -60,40 +68,55 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.ui.tooling.preview)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
-    implementation("com.google.dagger:hilt-android:2.51.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.lifecycle.viewmodel.compose.v261)
+    implementation(libs.androidx.hilt.navigation.compose)
     // Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    kapt ("androidx.room:room-compiler:2.5.0")
+    implementation(libs.androidx.room.runtime.v250)
+    kapt (libs.androidx.room.compiler.v250)
 
     // Kotlin Extensions for Room
-    implementation("androidx.room:room-ktx:2.5.0")
+    implementation(libs.androidx.room.ktx.v250)
 
     // Hilt Testing dependencies (optional for testing)
-    androidTestImplementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0")
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
-    kaptAndroidTest("androidx.hilt:hilt-compiler:1.0.0")
+    androidTestImplementation(libs.hilt.android.testing)
+    kaptAndroidTest(libs.androidx.hilt.compiler)
 
     // Coroutine dependencies for Room
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(libs.kotlinx.coroutines.android)
 
     //Coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation(libs.coil.compose.v240)
 
 
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0") // for Kotlin's assertEquals and other test functions
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // Replace with the latest version
-    testImplementation("io.mockk:mockk:1.13.2")
-    androidTestImplementation("io.mockk:mockk-android:1.13.2")
 
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    androidTestImplementation("app.cash.paparazzi:paparazzi:1.3.1")
 
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk.android)
+
+    // Mockito
+    testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.kotlin)
+    testImplementation (libs.mockito.inline)
+
+    // Coroutines Test
+    testImplementation (libs.kotlinx.coroutines.test.v173)
+    testImplementation (libs.turbine)
+
+    testImplementation(libs.androidx.core.testing)
+
+    androidTestImplementation(libs.androidx.navigation.testing)
+    kaptAndroidTest(libs.hilt.android.compiler)
+    debugImplementation(libs.androidx.ui.test.manifest)
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
 
 }
 
