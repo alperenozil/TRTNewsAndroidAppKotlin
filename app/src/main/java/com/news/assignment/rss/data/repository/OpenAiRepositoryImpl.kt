@@ -1,5 +1,6 @@
 package com.news.assignment.rss.data.repository
 
+import com.news.assignment.rss.common.Constants.KEY_OPEN_AI
 import com.news.assignment.rss.common.Resource
 import com.news.assignment.rss.data.api.OpenAiApi
 import com.news.assignment.rss.data.remote.openai.ChatRequest
@@ -26,7 +27,7 @@ class OpenAiRepositoryImpl @Inject constructor(
                 emit(
                     Resource.Success(
                         openAiApi.getSummary(
-                            "Bearer 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",
+                            "Bearer $KEY_OPEN_AI",
                             request
                         ).choices.firstOrNull()?.message?.content ?: "No summary found."
                     )
@@ -52,7 +53,7 @@ class OpenAiRepositoryImpl @Inject constructor(
                 emit(
                     Resource.Success(
                         openAiApi.getSummary(
-                            "Bearer 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",
+                            "Bearer $KEY_OPEN_AI",
                             request
                         ).choices.firstOrNull()?.message?.content ?: "No recommendations found."
                     )

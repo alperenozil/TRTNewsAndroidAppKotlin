@@ -10,4 +10,6 @@ object Constants {
     const val URL_GERMAN = "https://www.trtdeutsch.com/"
     const val URL_TRANSLATE = "https://translation.googleapis.com/"
     const val URL_OPEN_AI = "https://api.openai.com/"
+    const val KEY_OPEN_AI = ""
+
 }
